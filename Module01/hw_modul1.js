@@ -17,22 +17,23 @@
         показывать alert с текстом 'Добро пожаловать!'
         
   PS: для удобства и чистоты кода сохраните в переменные сообщения отображаемые в alert
-*/
+const ADMIN_LOGIN = 'admin';
+const ADMIN_PASSWORD = 'm4ngo1zh4ackz0r';*/
 
-let userLogin = prompt("Введите логин!");
+let login = prompt("Введите логин!");
 const CANCEL = "Отменено пользователем";
 const ACCESS_OUT = "Доступ запрещен!";
 const ACCESS_IN = "Добро пожаловать!";
-const LOGIN = "ADMIN_LOGIN";
-const PASSWD = "ADMIN_PASSWORD";
+const ADMIN_LOGIN = "admin";
+const ADMIN_PASSWORD = "m4ngo1zh4ackz0r";
 
-if (userLogin === null) {
+if (login === null) {
   alert(CANCEL);
-} else if (userLogin === LOGIN) {
+} else if (login === ADMIN_LOGIN) {
   let userPasswd = prompt("Введите пароль");
   if (userPasswd === null) {
     alert(CANCEL);
-  } else if (userPasswd === PASSWD) {
+  } else if (userPasswd === ADMIN_PASSWORD) {
     alert(ACCESS_IN)
   } else {
     alert(ACCESS_OUT);
