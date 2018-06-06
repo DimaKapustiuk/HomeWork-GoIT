@@ -30,10 +30,10 @@ const ADMIN_PASSWORD = "m4ngo1zh4ackz0r";
 if (login === null) {
   alert(CANCEL);
 } else if (login === ADMIN_LOGIN) {
-  let userPasswd = prompt("Введите пароль");
-  if (userPasswd === null) {
+  let passwd = prompt("Введите пароль");
+  if (passwd === null) {
     alert(CANCEL);
-  } else if (userPasswd === ADMIN_PASSWORD) {
+  } else if (passwd === ADMIN_PASSWORD) {
     alert(ACCESS_IN)
   } else {
     alert(ACCESS_OUT);
