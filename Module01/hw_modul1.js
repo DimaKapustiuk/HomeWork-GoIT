@@ -1,4 +1,3 @@
-
 /*
   Напишите скрипт, для авторизации администратора в панели управления.
   
@@ -29,15 +28,15 @@ const PASSWD = "ADMIN_PASSWORD";
 
 if (userLogin === null) {
   alert(CANCEL);
-} else if  (userLogin === LOGIN) {
-    let userPasswd  = prompt("Введите пароль");
-      if (userPasswd === null) {
-        alert(CANCEL);
-      } else if (userPasswd === PASSWD) {
-        alert(ACCESS_IN)
-      } else {
-        alert(ACCESS_OUT);
-      }
-} else  {
+} else if (userLogin === LOGIN) {
+  let userPasswd = prompt("Введите пароль");
+  if (userPasswd === null) {
+    alert(CANCEL);
+  } else if (userPasswd === PASSWD) {
+    alert(ACCESS_IN)
+  } else {
     alert(ACCESS_OUT);
-} 
+  }
+} else {
+  alert(ACCESS_OUT);
+}
