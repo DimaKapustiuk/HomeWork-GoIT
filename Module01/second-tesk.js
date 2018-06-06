@@ -26,35 +26,38 @@ let userData = prompt("Введите целое число необходимы
 let userGroup = Number(userData);
 const SHARM = 15;
 const HURGADA = 25;
-const TABA  = 6;
+const TABA = 6;
 const SHARM_GROUP = "Sharm!";
 const HURGADA_GROUP = "Hurgada!";
 const TABA_GROUP = "Taba!";
+let sumPlaces = SHARM + TABA + HURGADA;
 
-if(userGroup % 1 === 0) {
+if (userGroup % 1 === 0) {
   alert("Да верно, проверяем к-во в групах");
   if (userGroup <= TABA) {
     const CHOISE_SHARM = confirm(`Есть свободное место в групе ${TABA_GROUP}, вас устроит?`);
-    if(CHOISE_SHARM === true){
+    if (CHOISE_SHARM === true) {
       alert(`Приятного путешествия в группе ${TABA_GROUP}`);
     } else {
       alert("Нам очень жаль приходите еще!")
     }
-  } else if (userGroup > TABA && userGroup <= SHARM){
-      const CHOISE_SHARM = confirm(`Есть свободное место в групе ${SHARM_GROUP}, вас устроит?`);
-    if(CHOISE_SHARM === true){
+  } else if (userGroup > TABA && userGroup <= SHARM) {
+    const CHOISE_SHARM = confirm(`Есть свободное место в групе ${SHARM_GROUP}, вас устроит?`);
+    if (CHOISE_SHARM === true) {
       alert(`Приятного путешествия в группе ${SHARM_GROUP}`);
     } else {
       alert("Нам очень жаль приходите еще!")
     }
   } else if (userGroup > SHARM && userGroup <= HURGADA) {
-      const CHOISE_SHARM = confirm(`Есть свободное место в групе ${HURGADA_GROUP}, вас устроит?`);
-    if (CHOISE_SHARM === true){
+    const CHOISE_SHARM = confirm(`Есть свободное место в групе ${HURGADA_GROUP}, вас устроит?`);
+    if (CHOISE_SHARM === true) {
       alert(`Приятного путешествия в группе ${HURGADA_GROUP}`);
     } else {
       alert("Нам очень жаль приходите еще!")
     }
+  } else if (userGroup >= sumPlaces) {
+    alert("Извените мест больше нет!");
   }
-} else   {
+} else {
   alert("Ошибка ввода!");
 }
