@@ -23,6 +23,7 @@
   Если мест нигде нет, показать alert с сообщением 'Извините, столько мест нет ни в одной группе!'
 */
 let userData = prompt("Введите целое число необходимых мест для Вашей групы!");
+console.log(userData);
 let userGroup = Number(userData);
 const SHARM = 15;
 const HURGADA = 25;
@@ -58,6 +59,8 @@ if (userGroup % 1 === 0) {
   } else if (userGroup >= sumPlaces) {
     alert("Извените мест больше нет!");
   }
+} else if (userGroup === null) {
+  alert("Приходите еще!");
 } else {
   alert("Ошибка ввода!");
 }
