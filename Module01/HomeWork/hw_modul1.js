@@ -44,6 +44,7 @@ const ADMIN_PASSWORD = 'm4ngo1zh4ackz0r';*/
   
   Если мест нигде нет, показать alert с сообщением 'Извините, столько мест нет ни в одной группе!'
 */
+"use strict";
 
 let login = prompt("Введите логин!");
 const CANCEL = "Отменено пользователем";
@@ -79,8 +80,7 @@ function changeTour() {
   const SHARM_GROUP = "Sharm!";
   const HURGADA_GROUP = "Hurgada!";
   const TABA_GROUP = "Taba!";
-  let sumPlaces = SHARM + TABA + HURGADA;
-
+ 
   if (userGroup % 1 === 0 && userGroup != 0) {
     alert("Да верно, проверяем к-во в групах");
     if (userGroup <= TABA) {
@@ -104,7 +104,7 @@ function changeTour() {
       } else {
         alert("Нам очень жаль приходите еще!")
       }
-    } else if (userGroup >= sumPlaces) {
+    } else if (userGroup > HURGADA) {
       alert("Извените мест больше нет!");
     }
   } else {
