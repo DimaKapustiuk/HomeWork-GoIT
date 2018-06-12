@@ -48,48 +48,48 @@ let attempts = 3;
 let inputPasswd;
 
 do {
-    inputPasswd = prompt("Введите пароль!");
-    if (inputPasswd === null) {
-        alert("Отменено пользователем")
-        break;
-    } else if (attempts === 0) {
-        alert("У вас закончились попытки! Аккаунт заблокирован!");
-        break;
-    } else if (passwords.includes(inputPasswd) === false) {
-        attempts--;
-        alert(`Пароль не верен, осталось попыток ${attempts +1}`);
-      } else {
-        alert("Доступ разрешен!")
-        sumArr();
-        break;
-    }
+  inputPasswd = prompt("Введите пароль!");
+  if (inputPasswd === null) {
+    alert("Отменено пользователем")
+    break;
+  } else if (attempts === 0) {
+    alert("У вас закончились попытки! Аккаунт заблокирован!");
+    break;
+  } else if (passwords.includes(inputPasswd) === false) {
+    attempts--;
+    alert(`Пароль не верен, осталось попыток ${attempts +1}`);
+  } else {
+    alert("Доступ разрешен!")
+    sumArr();
+    break;
+  }
 } while (attempts != -1)
 
-function sumArr(){
-let userInput;
-const numbers = [];
-let total = 0;
-let userNumbers;
-do {
-  userInput = prompt("Введите число для масива чисел! Что бы завершить ввод нажмите ОТМЕНА");
-  userNumbers = Number.parseInt(userInput);
+function sumArr() {
+  let userInput;
+  const numbers = [];
+  let total = 0;
+  let userNumbers;
+  do {
+    userInput = prompt("Введите число для масива чисел! Что бы завершить ввод нажмите ОТМЕНА");
+    userNumbers = Number.parseInt(userInput);
 
-  if (userNumbers % 1 === 0) {
-    numbers.push(userNumbers);
-  } else if (userInput === null) {
-    alert(`Считаем сумму Вашего Масива!, Масив: ${numbers}`);
-  } else {
-    alert("Введите число! Символ который вы ввели не число!");
+    if (userNumbers % 1 === 0) {
+      numbers.push(userNumbers);
+    } else if (userInput === null) {
+      alert(`Считаем сумму Вашего Масива!, Масив: ${numbers}`);
+    } else {
+      alert("Введите число! Символ который вы ввели не число!");
+    }
+  } while (userInput != null);
+
+  for (const value of numbers) {
+    total += value;
   }
-} while (userInput != null);
 
-for (const value of numbers) {
-  total += value;
-}
-
-if (total === 0) {
-  alert("Масив чисел пустой!");
-} else {
-  alert(`Сумма всех чисел Вашего масива = ${total}`);
-}
+  if (total === 0) {
+    alert("Масив чисел пустой!");
+  } else {
+    alert(`Сумма всех чисел Вашего масива = ${total}`);
+  }
 }
