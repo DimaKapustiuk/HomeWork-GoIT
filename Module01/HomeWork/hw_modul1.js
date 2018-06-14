@@ -52,11 +52,12 @@ const ACCESS_OUT = "Доступ запрещен!";
 const ACCESS_IN = "Добро пожаловать!";
 const ADMIN_LOGIN = "admin";
 const ADMIN_PASSWORD = "m4ngo1zh4ackz0r";
+let passwd;
 
 if (login === null) {
   alert(CANCEL);
 } else if (login === ADMIN_LOGIN) {
-  let passwd = prompt("Введите пароль");
+  passwd = prompt("Введите пароль");
   if (passwd === null) {
     alert(CANCEL);
   } else if (passwd === ADMIN_PASSWORD) {
@@ -80,8 +81,8 @@ function changeTour() {
   const SHARM_GROUP = "Sharm!";
   const HURGADA_GROUP = "Hurgada!";
   const TABA_GROUP = "Taba!";
- 
-  if (userGroup % 1 === 0 && userGroup != 0) {
+
+  if (userGroup % 1 === 0 && userGroup > 0) {
     alert("Да верно, проверяем к-во в групах");
     if (userGroup <= TABA) {
       const CHOISE_SHARM = confirm(`Есть свободное место в групе ${TABA_GROUP}, вас устроит?`);
@@ -90,14 +91,14 @@ function changeTour() {
       } else {
         alert("Нам очень жаль приходите еще!")
       }
-    } else if (userGroup > TABA && userGroup <= SHARM) {
+    } else if (userGroup <= SHARM) {
       const CHOISE_SHARM = confirm(`Есть свободное место в групе ${SHARM_GROUP}, вас устроит?`);
       if (CHOISE_SHARM === true) {
         alert(`Приятного путешествия в группе ${SHARM_GROUP}`);
       } else {
         alert("Нам очень жаль приходите еще!")
       }
-    } else if (userGroup > SHARM && userGroup <= HURGADA) {
+    } else if (userGroup <= HURGADA) {
       const CHOISE_SHARM = confirm(`Есть свободное место в групе ${HURGADA_GROUP}, вас устроит?`);
       if (CHOISE_SHARM === true) {
         alert(`Приятного путешествия в группе ${HURGADA_GROUP}`);
@@ -107,7 +108,7 @@ function changeTour() {
     } else if (userGroup > HURGADA) {
       alert("Извените мест больше нет!");
     }
-  } else {
+  }  else {
     alert("Ошибка ввода!");
   }
 }
