@@ -72,4 +72,6 @@ function addLogin(logins, login) {
     alert('Такой логин уже используется!');
   }
 }
+
+addLogin(logins, userLogin);
 console.log(checkLoginValidity(userLogin));
