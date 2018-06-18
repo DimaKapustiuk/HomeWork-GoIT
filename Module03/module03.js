@@ -42,3 +42,34 @@
       - addLogin вызывает обе функции и по результату их работы или добавляет логин в logins или нет, 
         возвращая указанные строки. Больше ничего не делает.
 */
+const logins = ["Mango", "robotGoogles", "Poly", "Aj4x1sBozz", "qwerty123"];
+const userLogin = prompt("Введите пожалуйста Логин");
+
+
+function checkLoginValidity(login) {
+  if(login.length >=4 && login.length <= 16) {
+    return true;
+  }
+  return false;
+}
+
+function checkIfLoginExists(logins, login) {
+  for(let i = 0; i < logins.length; i += 1){
+    if(logins[i] === login) {
+      return true;
+    }
+    return false;   
+  }
+}
+
+function addLogin(logins, login) {
+  if(checkLoginValidity(login) === false) {
+    alert('Ошибка! Логин должен быть от 4 до 16 символов');
+  } else if (checkIfLoginExists(logins, login) === false) {
+    logins.push(login);
+    alert("Логин успешно добавлен!")
+  } else {
+    alert('Такой логин уже используется!');
+  }
+}
+console.log(checkLoginValidity(userLogin));
