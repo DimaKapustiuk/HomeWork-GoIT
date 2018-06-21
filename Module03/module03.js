@@ -59,8 +59,8 @@ const checkIfLoginExists = (logins, login) => {
     if (logins.includes(login)) {
       return true;
     }
-
   }
+  
   return false;
 }
 
