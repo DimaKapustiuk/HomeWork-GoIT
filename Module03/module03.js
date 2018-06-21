@@ -47,23 +47,25 @@ const userLogin = prompt("Введите пожалуйста Логин");
 
 
 const checkLoginValidity = login => {
-  if(login.length >=4 && login.length <= 16) {
+  if (login.length >= 4 && login.length <= 16) {
     return true;
   }
+
   return false;
 }
 
 const checkIfLoginExists = (logins, login) => {
-  for(let i = 0; i < logins.length; i += 1){
-    if(logins.includes(login)) {
+  for (let i = 0; i < logins.length; i += 1) {
+    if (logins.includes(login)) {
       return true;
     }
-    return false;   
+
   }
+  return false;
 }
 
 const addLogin = (logins, login) => {
-  if(checkLoginValidity(login) === false) {
+  if (checkLoginValidity(login) === false) {
     alert('Ошибка! Логин должен быть от 4 до 16 символов');
   } else if (checkIfLoginExists(logins, login) === false) {
     logins.push(login);
