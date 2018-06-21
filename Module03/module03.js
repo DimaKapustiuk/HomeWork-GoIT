@@ -54,15 +54,8 @@ const checkLoginValidity = login => {
   return false;
 }
 
-const checkIfLoginExists = (logins, login) => {
-  for (let i = 0; i < logins.length; i += 1) {
-    if (logins.includes(login)) {
-      return true;
-    }
-  }
-  
-  return false;
-}
+const checkIfLoginExists = (logins, login) => logins.includes(login);
+    
 
 const addLogin = (logins, login) => {
   if (checkLoginValidity(login) === false) {
