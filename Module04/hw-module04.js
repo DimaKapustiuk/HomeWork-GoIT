@@ -72,16 +72,27 @@ function Cashier(name, productsDatabase) {
   };
 
   this.countTotalPrice = function(order) {
-    for (const dbProduct in this.productsDatabase) {
+   let productsDatabase = this.productsDatabase;
+   let total =  this.totalPrice;
 
-      for (const clientProduct in order) {
-        if (dbProduct === clientProduct) {
-          const mult = this.productsDatabase[dbProduct] * order[clientProduct];
-          this.totalPrice += mult;
+    for (const productClient in order) {
+     checkInObj(productClient);
+    }
+
+    function checkInObj(key) {
+      let mult;
+
+      for (const productShop in productsDatabase) {
+        if (productShop === key) {
+          mult = productsDatabase[productShop] * order[key];
+         total += mult;
         }
       }
+
+      return total;
     }
-    return this.totalPrice;
+
+    return this.totalPrice = total;
   };
 
   this.getCustomerMoney = function(value) {
@@ -126,7 +137,8 @@ mango.greet(); // Здравствуйте, вас обслуживает Mango
 
 // Вызываем метод countTotalPrice для подсчета общей суммы
 // передавая order - список покупок пользователя
-mango.countTotalPrice(order);
+
+ mango.countTotalPrice(order);
 
 // Проверям что посчитали
 console.log(mango.totalPrice); // 110
