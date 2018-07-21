@@ -136,6 +136,10 @@ Hamburger.SIZES = {
     price: 30,
     calories: 50,
   },
+  [Hamburger.SIZE_LARGE]: {
+    price: 50,
+    calories: 100,
+  },
 };
 
 Hamburger.STUFFING_CHEESE = 'STUFFING_CHEESE';
