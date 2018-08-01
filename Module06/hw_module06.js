@@ -93,10 +93,7 @@ class Hamburger {
   get calculatePrice() {
     const arrOrder = [Hamburger.SIZES[this.size], Hamburger.STUFFINGS[this.stuffing]];
     let sumPrice = arrOrder.reduce((acc, obj) => acc + obj.price, 0);
-
-    const toppingPrice = this.topping.reduce((acc, key) => {
-      return acc += Hamburger.TOPPINGS[key].price;
-    }, 0);
+    const toppingPrice = this.topping.reduce((acc, key) => acc + Hamburger.TOPPINGS[key].price, 0);
 
     sumPrice += toppingPrice;
 
@@ -112,10 +109,7 @@ class Hamburger {
   get calculateCalories() {
     const arrOrder = [Hamburger.SIZES[this.size], Hamburger.STUFFINGS[this.stuffing]];
     let sumCalories = arrOrder.reduce((acc, obj) => acc + obj.calories, 0);
-
-    const toppingPrice = this.topping.reduce((acc, key) => {
-      return acc += Hamburger.TOPPINGS[key].calories;
-    }, 0);
+    const toppingPrice = this.topping.reduce((acc, key) => acc + Hamburger.TOPPINGS[key].calories, 0);
 
     sumCalories += toppingPrice;
 
