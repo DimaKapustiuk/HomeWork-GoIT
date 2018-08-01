@@ -32,62 +32,69 @@ const posts = [{
   }
 ];
 
-const createMainDiv = () => {
-  const div = document.createElement('div')
-  div.classList.add('post')
+const createPost = () => {
+  const post = document.createElement('div')
+  post.classList.add('post')
 
-  return div;
+  return post;
 }
 
 const createPostImg = img => {
-  const image = document.createElement('img');
-  image.setAttribute('src', img);
-  image.setAttribute('alt', "post image");
+  const postImg = document.createElement('img');
+  postImg.setAttribute('src', img);
+  postImg.setAttribute('alt', "post image");
 
-  return image;
+  return postImg;
 }
 
 const createPostTitle = title => {
-  const h2 = document.createElement('h2');
-  h2.classList.add('post__title');
-  h2.textContent = title;
+  const  postTitle = document.createElement('h2');
+  postTitle.classList.add('post__title');
+  postTitle.textContent = title;
 
-  return h2;
+  return  postTitle;
 }
 
 const createPostParagraph = text => {
-  const paragraph = document.createElement('p');
-  paragraph.classList.add('post__text');
-  paragraph.textContent = text;
+  const postText = document.createElement('p');
+  postText.classList.add('post__text');
+  postText.textContent = text;
 
-  return paragraph;
+  return postText;
 }
 
 const createPostButton = link => {
-  const btn = document.createElement('a');
-  btn.classList.add('button');
-  btn.textContent = 'Read More';
-  btn.href = link;
+  const postLink = document.createElement('a');
+  postLink.classList.add('button');
+  postLink.textContent = 'Read More';
+  postLink.href = link;
 
-  return btn;
+  return postLink;
 }
 
 const createPostCard = ({ img, title, text, link }) => {
-  const list = document.querySelector('.root');
-  const post = createMainDiv();
+  const post = createPost();
   const postImage = createPostImg(img);
-  const postTitle = createPostTitle(title);
+  const postName = createPostTitle(title);
   const postParagraph = createPostParagraph(text);
   const postButton = createPostButton(link);
 
-  post.append(postImage, postTitle, postParagraph, postButton);
-  list.append(post);
+  post.append(postImage, postName, postParagraph, postButton);
+
+  return post;
 }
 
 const createCards = arr => {
-  const posts = arr.map(post => createPostCard(post));
+  const postsCards = arr.map(post => createPostCard(post));
 
-  return posts;
+  return postsCards;
 }
 
-createCards(posts);
+const paintCards = cards => {
+  const list = document.querySelector('.root');
+  const cardPosts = createCards(cards);
+
+  list.append(...cardPosts);
+}
+
+paintCards(posts);
