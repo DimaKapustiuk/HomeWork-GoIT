@@ -139,9 +139,11 @@ const onLoad = () => {
     const dataSrc = event.target.dataset.fullview;
     const imgAlt =  event.target.alt;
 
-    fullImage.src = dataSrc;
-    fullImage.alt = imgAlt;
-};
+    if(event.target !== event.currentTarget){
+      fullImage.src = dataSrc;
+      fullImage.alt = imgAlt;
+    }
+  };
 
   fullview.classList.add('fullview');
   list.classList.add('preview');
