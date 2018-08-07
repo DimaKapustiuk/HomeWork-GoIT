@@ -67,7 +67,7 @@ const createPreview = () => document.createElement('ul');
 const createLi = () => document.createElement('li');
 const createImg = () => document.createElement('img');
 
-const createImageFullview = ({fullview, alt}) => {
+const createImageFullview = ({ fullview, alt }) => {
   const fullviewDiv = createFullView();
   const imageFullview = createImg();
 
@@ -98,7 +98,7 @@ const createPreviewItem = obj => {
   return itemPreview;
 };
 
-const addPreviwItem = images => {
+const paintPreviwItem = images => {
   const addImages = images.map(image => createPreviewItem(image));
 
   return addImages;
@@ -132,14 +132,14 @@ const hoverDiv = () => {
 const onLoad = () => {
   const fullview = createImageFullview(galleryItems[0]);
   const list = createPreview();
-  const images = addPreviwItem(galleryItems);
+  const images = paintPreviwItem(galleryItems);
   const fullImage = fullview.querySelector('img');
 
   const onClickImage = event => {
     const dataSrc = event.target.dataset.fullview;
-    const imgAlt =  event.target.alt;
+    const imgAlt = event.target.alt;
 
-    if(event.target !== event.currentTarget){
+    if (event.target !== event.currentTarget) {
       fullImage.src = dataSrc;
       fullImage.alt = imgAlt;
     }
@@ -155,6 +155,3 @@ const onLoad = () => {
 };
 
 document.addEventListener('DOMContentLoaded', onLoad);
-
-
-
