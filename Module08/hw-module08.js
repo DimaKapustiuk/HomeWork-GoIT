@@ -84,22 +84,25 @@ const galleryItems = [
 const gallery = document.querySelector('.js-image-gallery');
 const createElement = elem => document.createElement(elem);
 
+const createImage = (src, alt) => {
+  const image = createElement('img');
+
+  image.src = src;
+  image.alt = alt;
+
+  return image;
+}
+
 const createImageFullview = ({ fullview, alt }) => {
   const fullviewDiv = createElement('div');
-  const imageFullview = createElement('img');
-
-  imageFullview.src = fullview;
-  imageFullview.alt = alt;
+  const imageFullview = createImage(fullview, alt);
   fullviewDiv.append(imageFullview);
 
   return fullviewDiv;
 }
 
 const createImagePreview = ({ preview, fullview, alt }) => {
-  const imagePreview = createElement('img');
-
-  imagePreview.src = preview;
-  imagePreview.alt = alt;
+  const imagePreview = createImage(preview, alt);
   imagePreview.dataset.fullview = fullview;
 
   return imagePreview;
