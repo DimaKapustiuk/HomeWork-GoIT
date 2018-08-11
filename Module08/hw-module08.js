@@ -52,6 +52,26 @@
   Замените пути на соотвествующие вашим, или назовите изображения аналогично.
 */
 
+// ⚠️ ЗАДАНИЕ ПОВЫШЕННОЙ СЛОЖНОСТИ - ВЫПОЛНЯТЬ ПО ЖЕЛАНИЮ
+  
+//   Создайте плагин галлереи используя ES6 класс. Добавьте поля и методы класса так, 
+//   чтобы можно было создать любое количество галлерей на странице. Функционал плагина 
+//   аналогичный заданию выше.
+  
+//   При создании экземпляра конструктор получает:
+//     - items - список элементов для preview
+//     - parentNode - ссылку на DOM-узел в который будут помещены fullview и preview
+//     - defaultActiveItem - номер активного элемента preview по умолчанию
+    
+//   Тогда создание экземпляра будет выглядеть следующим образом.
+
+
+// new Gallery({
+//   items: galleryItems,
+//   parentNode: document.querySelector('.image-gallery'),
+//   defaultActiveItem: 1
+// });
+
 const galleryItems = [
   { preview: 'img/preview-1.jpeg', fullview: 'img/fullwiew-1.jpg', alt: "alt text 1" },
   { preview: 'img/preview-2.jpeg', fullview: 'img/fullview-2.jpeg', alt: "alt text 2" },
@@ -62,14 +82,11 @@ const galleryItems = [
 ];
 
 const gallery = document.querySelector('.js-image-gallery');
-const createFullView = () => document.createElement('div');
-const createPreview = () => document.createElement('ul');
-const createLi = () => document.createElement('li');
-const createImg = () => document.createElement('img');
+const createElement = elem => document.createElement(elem);
 
 const createImageFullview = ({ fullview, alt }) => {
-  const fullviewDiv = createFullView();
-  const imageFullview = createImg();
+  const fullviewDiv = createElement('div');
+  const imageFullview = createElement('img');
 
   imageFullview.src = fullview;
   imageFullview.alt = alt;
@@ -79,7 +96,7 @@ const createImageFullview = ({ fullview, alt }) => {
 }
 
 const createImagePreview = ({ preview, fullview, alt }) => {
-  const imagePreview = createImg();
+  const imagePreview = createElement('img');
 
   imagePreview.src = preview;
   imagePreview.alt = alt;
@@ -89,7 +106,7 @@ const createImagePreview = ({ preview, fullview, alt }) => {
 }
 
 const createPreviewItem = obj => {
-  const itemPreview = createLi();
+  const itemPreview = createElement('li');
   const imagePreview = createImagePreview(obj);
 
   itemPreview.classList.add('image-wrapper')
@@ -118,20 +135,20 @@ const hoverDiv = () => {
 
   imageWrapper.forEach(val => {
 
-    val.onmouseover = () => {
+    val.addEventListener('mouseover', () => {
       val.style.border = `10px solid ${randColor()}`;
-    };
+    }); 
 
-    val.onmouseout = () => {
+    val.addEventListener('mouseout', () => {
       val.style.border = '10px solid #fff';
-    };
+    });
   });
 };
 
 
 const onLoad = () => {
   const fullview = createImageFullview(galleryItems[0]);
-  const list = createPreview();
+  const list = createElement('ul');
   const images = paintPreviwItem(galleryItems);
   const fullImage = fullview.querySelector('img');
 
