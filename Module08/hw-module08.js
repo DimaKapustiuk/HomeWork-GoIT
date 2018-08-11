@@ -96,6 +96,7 @@ const createImage = (src, alt) => {
 const createImageFullview = ({ fullview, alt }) => {
   const fullviewDiv = createElement('div');
   const imageFullview = createImage(fullview, alt);
+
   fullviewDiv.append(imageFullview);
 
   return fullviewDiv;
@@ -103,6 +104,7 @@ const createImageFullview = ({ fullview, alt }) => {
 
 const createImagePreview = ({ preview, fullview, alt }) => {
   const imagePreview = createImage(preview, alt);
+  
   imagePreview.dataset.fullview = fullview;
 
   return imagePreview;

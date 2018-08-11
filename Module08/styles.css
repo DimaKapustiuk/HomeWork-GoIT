@@ -20,7 +20,7 @@
 	grid-column: 1/-1;
 }
 .fullview img {
-	width: 100%;
+	width: 95%;
 	height: 100%;
 }
 
@@ -32,6 +32,7 @@
 	grid-gap: 10px;
 	text-decoration: none;
 	list-style: none;
+	justify-content: center;
 }
 
 .image-wrapper {
