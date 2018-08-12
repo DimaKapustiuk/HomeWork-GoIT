@@ -53,16 +53,16 @@
 */
 
 // ⚠️ ЗАДАНИЕ ПОВЫШЕННОЙ СЛОЖНОСТИ - ВЫПОЛНЯТЬ ПО ЖЕЛАНИЮ
-  
+
 //   Создайте плагин галлереи используя ES6 класс. Добавьте поля и методы класса так, 
 //   чтобы можно было создать любое количество галлерей на странице. Функционал плагина 
 //   аналогичный заданию выше.
-  
+
 //   При создании экземпляра конструктор получает:
 //     - items - список элементов для preview
 //     - parentNode - ссылку на DOM-узел в который будут помещены fullview и preview
 //     - defaultActiveItem - номер активного элемента preview по умолчанию
-    
+
 //   Тогда создание экземпляра будет выглядеть следующим образом.
 
 
@@ -104,7 +104,7 @@ const createImageFullview = ({ fullview, alt }) => {
 
 const createImagePreview = ({ preview, fullview, alt }) => {
   const imagePreview = createImage(preview, alt);
-  
+
   imagePreview.dataset.fullview = fullview;
 
   return imagePreview;
@@ -126,23 +126,23 @@ const paintPreviwItem = images => {
   return addImages;
 };
 
+const randColor = () => {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  const color = "#" + r.toString(16) + g.toString(16) + b.toString(16);
+
+  return color;
+};
+
 const hoverDiv = () => {
   const imageWrapper = document.querySelectorAll('.image-wrapper');
-
-  const randColor = () => {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    const color = "#" + r.toString(16) + g.toString(16) + b.toString(16);
-
-    return color;
-  };
 
   imageWrapper.forEach(val => {
 
     val.addEventListener('mouseover', () => {
       val.style.border = `10px solid ${randColor()}`;
-    }); 
+    });
 
     val.addEventListener('mouseout', () => {
       val.style.border = '10px solid #fff';
