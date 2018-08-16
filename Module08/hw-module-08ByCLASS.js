@@ -24,7 +24,7 @@ class Gallery {
   }
 
   static createElement(elem) {
-    document.createElement(elem);
+    return document.createElement(elem);
   }
 
   static createImage(src, alt) {
@@ -96,7 +96,7 @@ class Gallery {
   onLoad() {
    const fullview = this.createImageFullview(this.items[this.defaultActiveItem]);
     const list = Gallery.createElement('ul');
-    const images = this.paintPreviwItem(this.items);
+    const images = Gallery.paintPreviwItem(this.items);
     const fullImage = fullview.querySelector('img');
 
     const onClickImage = event => {
