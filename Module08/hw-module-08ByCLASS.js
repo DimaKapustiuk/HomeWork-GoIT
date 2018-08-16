@@ -27,6 +27,7 @@ class Gallery {
     return document.createElement(elem);
   }
 
+
   static createImage(src, alt) {
     const image = Gallery.createElement('img');
 
@@ -36,7 +37,7 @@ class Gallery {
     return image;
   }
 
-  createImageFullview({ fullview, alt }) {
+   static createImageFullview({ fullview, alt }) {
     const fullviewDiv = Gallery.createElement('div');
     const imageFullview = Gallery.createImage(fullview, alt);
 
@@ -45,7 +46,8 @@ class Gallery {
     return fullviewDiv;
   }
 
-  createImagePreview({ preview, fullview, alt }) {
+
+  static createImagePreview({ preview, fullview, alt }) {
     const imagePreview = Gallery.createImage(preview, alt);
 
     imagePreview.dataset.fullview = fullview;
@@ -53,9 +55,9 @@ class Gallery {
     return imagePreview;
   }
 
-  createPreviewItem(obj) {
+  static createPreviewItem(obj) {
     const itemPreview = Gallery.createElement('li');
-    const imagePreview = this.createImagePreview(obj);
+    const imagePreview = Gallery.createImagePreview(obj);
 
     itemPreview.classList.add('image-wrapper');
     itemPreview.append(imagePreview);
@@ -64,7 +66,7 @@ class Gallery {
   }
 
  static paintPreviwItem(images) {
-    const addImages = images.map(image => this.createPreviewItem(image));
+    const addImages = images.map(image => Gallery.createPreviewItem(image));
 
     return addImages;
   }
@@ -94,7 +96,7 @@ class Gallery {
   }
 
   onLoad() {
-   const fullview = this.createImageFullview(this.items[this.defaultActiveItem]);
+   const fullview = Gallery.createImageFullview(this.items[this.defaultActiveItem]);
     const list = Gallery.createElement('ul');
     const images = Gallery.paintPreviwItem(this.items);
     const fullImage = fullview.querySelector('img');
@@ -107,7 +109,7 @@ class Gallery {
         fullImage.src = dataSrc;
         fullImage.alt = imgAlt;
       }
-    };
+    }
 
     fullview.classList.add('fullview');
     list.classList.add('preview');
@@ -116,13 +118,12 @@ class Gallery {
 
     list.addEventListener('click', onClickImage);
     Gallery.hoverDiv();
-  };
-
-
+  }
 }
 
-const gallery = new Gallery({
+ new Gallery({
  items: galleryItems,
  parentNode: document.querySelector('.image-gallery'),
- defaultActiveItem: 0
+ defaultActiveItem: 2
 })
+
