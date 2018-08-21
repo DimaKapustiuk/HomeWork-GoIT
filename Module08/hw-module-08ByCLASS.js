@@ -94,29 +94,32 @@ class Gallery {
       });
     });
   }
-
-  onLoad() {
-   const fullview = Gallery.createImageFullview(this.items[this.defaultActiveItem]);
-    const list = Gallery.createElement('ul');
-    const images = Gallery.paintPreviwItem(this.items);
-    const fullImage = fullview.querySelector('img');
-
-    const onClickImage = event => {
+ onClickImage(fullImage){
+  return event => {
       const dataSrc = event.target.dataset.fullview;
       const imgAlt = event.target.alt;
+      if(event.target.classList.contains('image-wrapper')) return;
 
       if (event.target !== event.currentTarget) {
         fullImage.src = dataSrc;
         fullImage.alt = imgAlt;
       }
     }
+ }
+ 
+  onLoad() {
+   const fullview = Gallery.createImageFullview(this.items[this.defaultActiveItem]);
+    const list = Gallery.createElement('ul');
+    const images = Gallery.paintPreviwItem(this.items);
+    const fullImage = fullview.querySelector('img');
+    console.log(fullImage)
 
     fullview.classList.add('fullview');
     list.classList.add('preview');
     list.append(...images);
     this.parentNode.append(fullview, list);
 
-    list.addEventListener('click', onClickImage);
+    list.addEventListener('click', this.onClickImage(fullImage));
     Gallery.hoverDiv();
   }
 }
