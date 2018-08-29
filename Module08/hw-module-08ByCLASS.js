@@ -98,6 +98,7 @@ class Gallery {
   return event => {
       const dataSrc = event.target.dataset.fullview;
       const imgAlt = event.target.alt;
+      
       if(event.target.classList.contains('image-wrapper')) return;
 
       if (event.target !== event.currentTarget) {
