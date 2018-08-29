@@ -94,7 +94,7 @@ const api = {
       method: 'PATCH',
       body: JSON.stringify(user),
       headers: {
-        'Content-type': 'application/json; charset=UTF-8' ,
+        'Content-type': 'application/json',
       },
     })
       .then(response => {
@@ -102,7 +102,7 @@ const api = {
 
         throw new Error('Error while fetching ' + response.statusText);
       })
-      .then(obj => console.log(obj))
+      
       .catch(error => alert(error))
   },
 }
@@ -202,14 +202,15 @@ function editUserStart(target) {
      userGlobal.name = user.name;
      userGlobal.age = user.age;
      userGlobal.id = postUserId;
-
   })
+
   toggleModal();
 }
 
 function editUserSave() {
   console.log(userGlobal)
   api.updateUser(userGlobal)
+    .then(obj => console.log(obj))
 
   toggleModal();
 }
