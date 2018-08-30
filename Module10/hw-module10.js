@@ -29,10 +29,10 @@ const refs = {
   backdropModal: document.querySelector('.backdrop'),
   userUpdateInput: document.querySelectorAll('.js-update-input'),
   modalInputName: document.querySelector('input[data-input="name"]'),
-  modalInputAge: document.querySelector('input[data-input="age"]')
+  modalInputAge: document.querySelector('input[data-input="age"]'),
 }
 
-const userGlobal = {
+let userGlobal = {
    id: null,
   name: null,
   age: null
@@ -64,6 +64,7 @@ const api = {
         throw new Error(`Error in response ${response.statusText}`)
       })
       .then(obj => obj.data)
+      .then(({_id: id, ...rest}) => ({id, ...rest}))
       .catch(error => alert(error))
   },
 
@@ -91,7 +92,7 @@ const api = {
 
   updateUser(user) {
     return fetch(`${this.baseURL}${user.id}`, {
-      method: 'PATCH',
+      method: 'PUT',
       body: JSON.stringify(user),
       headers: {
         'Content-type': 'application/json',
@@ -132,7 +133,7 @@ function handleBtnGetAllUser () {
 
 function paintedAllUserInArray(arr){
   return arr.reduce((acc, user) => 
-   acc + createAllPostUser(user), '');
+   acc + createPostUser(user), '');
 }
 
 function handleBtnAddUser(e) {
@@ -208,10 +209,23 @@ function editUserStart(target) {
 }
 
 function editUserSave() {
-  console.log(userGlobal)
-  api.updateUser(userGlobal)
-    .then(obj => console.log(obj))
+  const updateUser = createUserInValueInput(refs.userUpdateInput);
+  const userName = document.querySelector('p[data-name="name"]');
+  const userAge = document.querySelector('p[data-name="age"]');
 
+  api.updateUser(userGlobal)
+   .then(obj => obj.data)
+   .then(user => {
+      user.name = updateUser.name;
+      user.age = updateUser.age;
+
+      return user;
+   })
+   .then(user =>{
+      userName.textContent = `NAME: ${user.name}`;
+      userAge.textContent = `NAME: ${user.age}`;
+   })
+   
   toggleModal();
 }
 
@@ -237,23 +251,16 @@ function deleteUserPost(target){
     });
 }
 
-function createPostUser({_id, name, age }) {
-  return `<div class="post" data-id='${_id}'>
-    <p class="post_id">ID: ${_id}</p>${userPostData(name, age)}</div>`
-}
 
-
-function createAllPostUser({id, name, age }) {
+function createPostUser({id, name, age }) {
   return `<div class="post" data-id='${id}'>
-    <p class="post_id">ID: ${id}</p>${userPostData(name, age)}</div>`
-}
-
-function userPostData(name, age) {
-  return ` <div> --------------------------------------  </div>
-    <p class="post_data">NAME: ${name}</p>
+    <p class="post_id">ID: ${id}</p>
+     <div> --------------------------------------  </div>
+    <p class="post_data" data-name = 'name'>NAME: ${name}</p>
     <div> --------------------------------------  </div>
-    <p class="post_data">AGE: ${age}</p>
+    <p class="post_data" data-name = 'age'>AGE: ${age}</p>
     <div> --------------------------------------  </div>
     <button class="btn" data-action = 'edit'>Редактировать</button>
-    <button class="btn" data-action = 'delete'>Удалить</button>`
+    <button class="btn" data-action = 'delete'>Удалить</button>
+    </div>`
 }
