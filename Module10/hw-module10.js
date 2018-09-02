@@ -32,7 +32,7 @@ const refs = {
   modalInputAge: document.querySelector('input[data-input="age"]'),
 }
 
-let userGlobal = {
+const userGlobal = {
    id: null,
   name: null,
   age: null
@@ -155,7 +155,7 @@ function handleBtnAddUser(e) {
 function handleBtnModalClick (e) {
   e.preventDefault();
 
-  modalEditUser(e.target)
+  modalEditUser(e)
 
 }
 
@@ -176,7 +176,7 @@ function handleBtnPostClick ({target}){
   }
 }
 
-function modalEditUser (target){
+function modalEditUser ({target}){
   if(target.nodeName !== "BUTTON") return;
 
   const action = target.dataset.action;
@@ -192,40 +192,37 @@ function modalEditUser (target){
        throw new Error('Unrecognized action type ' + action);
   }
 }
+
 function editUserStart(target) {
   const editPost = target.closest('.post');
   const postUserId = editPost.dataset.id;
 
-  api.getUserById(postUserId).then(user => {
+   api.getUserById(postUserId).then(user => {
       refs.modalInputName.value = user.name;
       refs.modalInputAge.value = user.age;
 
-     userGlobal.name = user.name;
-     userGlobal.age = user.age;
-     userGlobal.id = postUserId;
-  })
+      userGlobal.id = postUserId;
+   })
 
   toggleModal();
 }
 
 function editUserSave() {
-  const updateUser = createUserInValueInput(refs.userUpdateInput);
+  const upUser = createUserInValueInput(refs.userUpdateInput);
   const userName = document.querySelector('p[data-name="name"]');
   const userAge = document.querySelector('p[data-name="age"]');
+  
+  userGlobal.name = upUser.name;
+  userGlobal.age = upUser.age;
 
   api.updateUser(userGlobal)
    .then(obj => obj.data)
-   .then(user => {
-      user.name = updateUser.name;
-      user.age = updateUser.age;
-
-      return user;
-   })
    .then(user =>{
       userName.textContent = `NAME: ${user.name}`;
-      userAge.textContent = `NAME: ${user.age}`;
+      userAge.textContent = `AGE: ${user.age}`;
+       console.log(userGlobal)
    })
-   
+  
   toggleModal();
 }
 
@@ -250,7 +247,6 @@ function deleteUserPost(target){
       post.remove();
     });
 }
-
 
 function createPostUser({id, name, age }) {
   return `<div class="post" data-id='${id}'>
