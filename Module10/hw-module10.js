@@ -25,7 +25,6 @@ const refs = {
   form: document.querySelector('.form'),
   allUserBtn: document.querySelector('button[data-action="show-all"]'),
   userInput: document.querySelectorAll('.js-user-input'),
-  post: document.querySelector('.post-wrapper'),
   backdropModal: document.querySelector('.backdrop'),
   userUpdateInput: document.querySelectorAll('.js-update-input'),
   modalInputName: document.querySelector('input[data-input="name"]'),
@@ -110,7 +109,7 @@ const api = {
 //----------------------------Listener----------------------------------------------------------------------
 refs.form.addEventListener('submit', handleBtnAddUser)
 refs.allUserBtn.addEventListener('click', handleBtnGetAllUser)
-refs.post.addEventListener('click', handleBtnPostClick)
+refs.postWrapper.addEventListener('click', handleBtnPostClick)
 refs.backdropModal.addEventListener('click', handleBtnModalClick)
 
 
@@ -207,21 +206,24 @@ function editUserStart(target) {
   toggleModal();
 }
 
+function repaintedPost({id, name, age}) {
+  const post = refs.postWrapper.querySelector(`.post[data-id ="${id}"`);
+  const postName = post.querySelector('p[data-name="name"]')
+  const postAge = post.querySelector('p[data-name="age"]')
+
+    postName.textContent = `NAME: ${name}`;
+    postAge.textContent  = `AGE: ${age}`;
+}
+
 function editUserSave() {
   const upUser = createUserInValueInput(refs.userUpdateInput);
-  const userName = document.querySelector('p[data-name="name"]');
-  const userAge = document.querySelector('p[data-name="age"]');
-  
+
   userGlobal.name = upUser.name;
   userGlobal.age = upUser.age;
 
   api.updateUser(userGlobal)
    .then(obj => obj.data)
-   .then(user =>{
-      userName.textContent = `NAME: ${user.name}`;
-      userAge.textContent = `AGE: ${user.age}`;
-       console.log(userGlobal)
-   })
+   .then(user => repaintedPost(user))
   
   toggleModal();
 }
