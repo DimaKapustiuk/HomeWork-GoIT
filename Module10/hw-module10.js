@@ -32,7 +32,7 @@ const refs = {
 }
 
 const userGlobal = {
-   id: null,
+  id: null,
   name: null,
   age: null
 }
@@ -42,7 +42,7 @@ const api = {
   getAllUsers() {
     return fetch(this.baseURL)
       .then(response => {
-        if(response.ok) return response.json();
+        if (response.ok) return response.json();
 
         throw new Error(`Error in response ${response.statusText}`)
       })
@@ -52,18 +52,18 @@ const api = {
   },
 
   addUser(user) {
-   return fetch(this.baseURL, {
-    method: 'POST',
-    body: JSON.stringify(user),
-    headers: { 'Content-type': 'application/json; charset=UTF-8' },
-   })
+    return fetch(this.baseURL, {
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      })
       .then(response => {
-        if(response.ok) return response.json();
+        if (response.ok) return response.json();
 
         throw new Error(`Error in response ${response.statusText}`)
       })
       .then(obj => obj.data)
-      .then(({_id: id, ...rest}) => ({id, ...rest}))
+      .then(({ _id: id, ...rest }) => ({ id, ...rest }))
       .catch(error => alert(error))
   },
 
@@ -77,9 +77,9 @@ const api = {
 
   getUserById(id) {
     return fetch(`${this.baseURL}${id}`, {
-      method: 'GET',
-      headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    })
+        method: 'GET',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      })
       .then(response => {
         if (response.ok) return response.json();
 
@@ -91,18 +91,18 @@ const api = {
 
   updateUser(user) {
     return fetch(`${this.baseURL}${user.id}`, {
-      method: 'PUT',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-type': 'application/json',
-      },
-    })
+        method: 'PUT',
+        body: JSON.stringify(user),
+        headers: {
+          'Content-type': 'application/json',
+        },
+      })
       .then(response => {
         if (response.ok) return response.json();
 
         throw new Error('Error while fetching ' + response.statusText);
       })
-      
+
       .catch(error => alert(error))
   },
 }
@@ -119,20 +119,20 @@ function User(name, age) {
   this.age = age;
 }
 
-function handleBtnGetAllUser () {
+function handleBtnGetAllUser() {
   api.getAllUsers()
-  .then(array => {
-    const markUp = paintedAllUserInArray(array);
+    .then(array => {
+      const markUp = paintedAllUserInArray(array);
 
-    refs.postWrapper.insertAdjacentHTML("beforeend", markUp)
-  })
+      refs.postWrapper.insertAdjacentHTML("beforeend", markUp)
+    })
 }
 
 
 
-function paintedAllUserInArray(arr){
-  return arr.reduce((acc, user) => 
-   acc + createPostUser(user), '');
+function paintedAllUserInArray(arr) {
+  return arr.reduce((acc, user) =>
+    acc + createPostUser(user), '');
 }
 
 function handleBtnAddUser(e) {
@@ -141,29 +141,28 @@ function handleBtnAddUser(e) {
   const user = createUserInValueInput(refs.userInput);
 
   api.addUser(user)
-  .then(user =>{
-    const post = createPostUser(user);
+    .then(user => {
+      const post = createPostUser(user);
 
-     refs.postWrapper.insertAdjacentHTML("afterbegin", post)
-  })
+      refs.postWrapper.insertAdjacentHTML("afterbegin", post)
+    })
 
-  refs.form.reset();
-
+  refs.form.reSset();
 }
 
-function handleBtnModalClick (e) {
+function handleBtnModalClick(e) {
   e.preventDefault();
 
   modalEditUser(e)
 
 }
 
-function handleBtnPostClick ({target}){
-  if(target.nodeName !== "BUTTON") return;
+function handleBtnPostClick({ target }) {
+  if (target.nodeName !== "BUTTON") return;
 
   const action = target.dataset.action;
 
-  switch(action){
+  switch (action) {
     case 'delete':
       deleteUserPost(target);
       break;
@@ -171,16 +170,16 @@ function handleBtnPostClick ({target}){
       editUserStart(target)
       break;
     default:
-       throw new Error('Unrecognized action type ' + action);
+      throw new Error('Unrecognized action type ' + action);
   }
 }
 
-function modalEditUser ({target}){
-  if(target.nodeName !== "BUTTON") return;
+function modalEditUser({ target }) {
+  if (target.nodeName !== "BUTTON") return;
 
   const action = target.dataset.action;
 
-  switch(action){
+  switch (action) {
     case 'save':
       editUserSave();
       break;
@@ -188,7 +187,7 @@ function modalEditUser ({target}){
       toggleModal();
       break;
     default:
-       throw new Error('Unrecognized action type ' + action);
+      throw new Error('Unrecognized action type ' + action);
   }
 }
 
@@ -196,23 +195,23 @@ function editUserStart(target) {
   const editPost = target.closest('.post');
   const postUserId = editPost.dataset.id;
 
-   api.getUserById(postUserId).then(user => {
-      refs.modalInputName.value = user.name;
-      refs.modalInputAge.value = user.age;
+  api.getUserById(postUserId).then(user => {
+    refs.modalInputName.value = user.name;
+    refs.modalInputAge.value = user.age;
 
-      userGlobal.id = postUserId;
-   })
+    userGlobal.id = postUserId;
+  })
 
   toggleModal();
 }
 
-function repaintedPost({id, name, age}) {
+function repaintedPost({ id, name, age }) {
   const post = refs.postWrapper.querySelector(`.post[data-id ="${id}"`);
   const postName = post.querySelector('p[data-name="name"]')
   const postAge = post.querySelector('p[data-name="age"]')
 
-    postName.textContent = `NAME: ${name}`;
-    postAge.textContent  = `AGE: ${age}`;
+  postName.textContent = `NAME: ${name}`;
+  postAge.textContent = `AGE: ${age}`;
 }
 
 function editUserSave() {
@@ -222,9 +221,9 @@ function editUserSave() {
   userGlobal.age = upUser.age;
 
   api.updateUser(userGlobal)
-   .then(obj => obj.data)
-   .then(user => repaintedPost(user))
-  
+    .then(obj => obj.data)
+    .then(user => repaintedPost(user))
+
   toggleModal();
 }
 
@@ -232,7 +231,7 @@ function toggleModal() {
   refs.backdropModal.classList.toggle('is-visible')
 }
 
-function createUserInValueInput(nodaList){
+function createUserInValueInput(nodaList) {
   const arrayInput = Array.from(nodaList);
   const arrayValue = arrayInput.map(input => input.value);
 
@@ -241,16 +240,16 @@ function createUserInValueInput(nodaList){
   })
 }
 
-function deleteUserPost(target){
+function deleteUserPost(target) {
   const post = target.closest('.post');
   const postIdToDelete = post.dataset.id;
 
-   api.deleteUser(postIdToDelete).then(() => {
-      post.remove();
-    });
+  api.deleteUser(postIdToDelete).then(() => {
+    post.remove();
+  });
 }
 
-function createPostUser({id, name, age }) {
+function createPostUser({ id, name, age }) {
   return `<div class="post" data-id='${id}'>
     <p class="post_id">ID: ${id}</p>
      <div> --------------------------------------  </div>
