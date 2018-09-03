@@ -20,23 +20,6 @@
   А так же панелью для вывода результатов операций с бэкендом.
 */
 
-const refs = {
-  postWrapper: document.querySelector('.post-wrapper'),
-  form: document.querySelector('.form'),
-  allUserBtn: document.querySelector('button[data-action="show-all"]'),
-  userInput: document.querySelectorAll('.js-user-input'),
-  backdropModal: document.querySelector('.backdrop'),
-  userUpdateInput: document.querySelectorAll('.js-update-input'),
-  modalInputName: document.querySelector('input[data-input="name"]'),
-  modalInputAge: document.querySelector('input[data-input="age"]'),
-}
-
-const userGlobal = {
-  id: null,
-  name: null,
-  age: null
-}
-
 const api = {
   baseURL: `https://test-users-api.herokuapp.com/users/`,
   getAllUsers() {
@@ -106,13 +89,15 @@ const api = {
       .catch(error => alert(error))
   },
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const refs = selectRefs();
+
 //----------------------------Listener----------------------------------------------------------------------
-refs.form.addEventListener('submit', handleBtnAddUser)
-refs.allUserBtn.addEventListener('click', handleBtnGetAllUser)
-refs.postWrapper.addEventListener('click', handleBtnPostClick)
-refs.backdropModal.addEventListener('click', handleBtnModalClick)
-
-
+  refs.form.addEventListener('submit', handleBtnAddUser);
+  refs.allUserBtn.addEventListener('click', handleBtnGetAllUser);
+  refs.postWrapper.addEventListener('click', handleBtnPostClick);
+  refs.backdropModal.addEventListener('click', handleBtnModalClick);
 //--------------------------------------------------------------------------------------------------
 function User(name, age) {
   this.name = name;
@@ -127,8 +112,6 @@ function handleBtnGetAllUser() {
       refs.postWrapper.insertAdjacentHTML("beforeend", markUp)
     })
 }
-
-
 
 function paintedAllUserInArray(arr) {
   return arr.reduce((acc, user) =>
@@ -147,14 +130,13 @@ function handleBtnAddUser(e) {
       refs.postWrapper.insertAdjacentHTML("afterbegin", post)
     })
 
-  refs.form.reSset();
+  refs.form.reset();
 }
 
 function handleBtnModalClick(e) {
   e.preventDefault();
 
   modalEditUser(e)
-
 }
 
 function handleBtnPostClick({ target }) {
@@ -198,37 +180,35 @@ function editUserStart(target) {
   api.getUserById(postUserId).then(user => {
     refs.modalInputName.value = user.name;
     refs.modalInputAge.value = user.age;
-
-    userGlobal.id = postUserId;
   })
 
+  refs.modal.dataset.id = postUserId;
   toggleModal();
-}
-
-function repaintedPost({ id, name, age }) {
-  const post = refs.postWrapper.querySelector(`.post[data-id ="${id}"`);
-  const postName = post.querySelector('p[data-name="name"]')
-  const postAge = post.querySelector('p[data-name="age"]')
-
-  postName.textContent = `NAME: ${name}`;
-  postAge.textContent = `AGE: ${age}`;
 }
 
 function editUserSave() {
   const upUser = createUserInValueInput(refs.userUpdateInput);
 
-  userGlobal.name = upUser.name;
-  userGlobal.age = upUser.age;
+  upUser.id = refs.modal.dataset.id;
 
-  api.updateUser(userGlobal)
+  api.updateUser(upUser)
     .then(obj => obj.data)
     .then(user => repaintedPost(user))
 
   toggleModal();
 }
 
+function repaintedPost({ id, name, age }) {
+  const post = refs.postWrapper.querySelector(`.post[data-id ="${id}"`);
+  const postName = post.querySelector('p[data-name="name"]');
+  const postAge = post.querySelector('p[data-name="age"]');
+
+  postName.textContent = `NAME: ${name}`;
+  postAge.textContent = `AGE: ${age}`;
+}
+
 function toggleModal() {
-  refs.backdropModal.classList.toggle('is-visible')
+  refs.backdropModal.classList.toggle('is-visible');
 }
 
 function createUserInValueInput(nodaList) {
@@ -261,3 +241,21 @@ function createPostUser({ id, name, age }) {
     <button class="btn" data-action = 'delete'>Удалить</button>
     </div>`
 }
+
+function selectRefs() {
+  const refs = {};
+
+  refs.postWrapper = document.querySelector('.post-wrapper');
+  refs.form = document.querySelector('.form');
+  refs.allUserBtn = document.querySelector('button[data-action="show-all"]');
+  refs.userInput = document.querySelectorAll('.js-user-input');
+  refs.backdropModal = document.querySelector('.backdrop');
+  refs.modal = document.querySelector('.modal');
+  refs.userUpdateInput = document.querySelectorAll('.js-update-input');
+  refs.modalInputName = document.querySelector('input[data-input="name"]');
+  refs.modalInputAge = document.querySelector('input[data-input="age"]');
+
+  return refs;
+}
+
+});

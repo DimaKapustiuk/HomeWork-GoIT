@@ -152,7 +152,7 @@ const hoverDiv = () => {
 
 
 const onLoad = () => {
-  const fullview = createImageFullview(galleryItems[0]);
+  const fullview = w(galleryItems[0]);
   const list = createElement('ul');
   const images = paintPreviwItem(galleryItems);
   const fullImage = fullview.querySelector('img');
