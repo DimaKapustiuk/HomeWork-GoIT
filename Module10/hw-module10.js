@@ -93,144 +93,144 @@ const api = {
 document.addEventListener('DOMContentLoaded', () => {
   const refs = selectRefs();
 
-//----------------------------Listener----------------------------------------------------------------------
+  //----------------------------Listener----------------------------------------------------------------------
   refs.form.addEventListener('submit', handleBtnAddUser);
   refs.allUserBtn.addEventListener('click', handleBtnGetAllUser);
   refs.postWrapper.addEventListener('click', handleBtnPostClick);
   refs.backdropModal.addEventListener('click', handleBtnModalClick);
-//--------------------------------------------------------------------------------------------------
-function User(name, age) {
-  this.name = name;
-  this.age = age;
-}
-
-function handleBtnGetAllUser() {
-  api.getAllUsers()
-    .then(array => {
-      const markUp = paintedAllUserInArray(array);
-
-      refs.postWrapper.insertAdjacentHTML("beforeend", markUp)
-    })
-}
-
-function paintedAllUserInArray(arr) {
-  return arr.reduce((acc, user) =>
-    acc + createPostUser(user), '');
-}
-
-function handleBtnAddUser(e) {
-  e.preventDefault();
-
-  const user = createUserInValueInput(refs.userInput);
-
-  api.addUser(user)
-    .then(user => {
-      const post = createPostUser(user);
-
-      refs.postWrapper.insertAdjacentHTML("afterbegin", post)
-    })
-
-  refs.form.reset();
-}
-
-function handleBtnModalClick(e) {
-  e.preventDefault();
-
-  modalEditUser(e)
-}
-
-function handleBtnPostClick({ target }) {
-  if (target.nodeName !== "BUTTON") return;
-
-  const action = target.dataset.action;
-
-  switch (action) {
-    case 'delete':
-      deleteUserPost(target);
-      break;
-    case 'edit':
-      editUserStart(target)
-      break;
-    default:
-      throw new Error('Unrecognized action type ' + action);
+  //--------------------------------------------------------------------------------------------------
+  function User(name, age) {
+    this.name = name;
+    this.age = age;
   }
-}
 
-function modalEditUser({ target }) {
-  if (target.nodeName !== "BUTTON") return;
+  function handleBtnGetAllUser() {
+    api.getAllUsers()
+      .then(array => {
+        const markUp = paintedAllUserInArray(array);
 
-  const action = target.dataset.action;
-
-  switch (action) {
-    case 'save':
-      editUserSave();
-      break;
-    case 'cancel':
-      toggleModal();
-      break;
-    default:
-      throw new Error('Unrecognized action type ' + action);
+        refs.postWrapper.insertAdjacentHTML("beforeend", markUp)
+      })
   }
-}
 
-function editUserStart(target) {
-  const editPost = target.closest('.post');
-  const postUserId = editPost.dataset.id;
+  function paintedAllUserInArray(arr) {
+    return arr.reduce((acc, user) =>
+      acc + createPostUser(user), '');
+  }
 
-  api.getUserById(postUserId).then(user => {
-    refs.modalInputName.value = user.name;
-    refs.modalInputAge.value = user.age;
-  })
+  function handleBtnAddUser(e) {
+    e.preventDefault();
 
-  refs.modal.dataset.id = postUserId;
-  toggleModal();
-}
+    const user = createUserInValueInput(refs.userInput);
 
-function editUserSave() {
-  const upUser = createUserInValueInput(refs.userUpdateInput);
+    api.addUser(user)
+      .then(user => {
+        const post = createPostUser(user);
 
-  upUser.id = refs.modal.dataset.id;
+        refs.postWrapper.insertAdjacentHTML("afterbegin", post)
+      })
 
-  api.updateUser(upUser)
-    .then(obj => obj.data)
-    .then(user => repaintedPost(user))
+    refs.form.reset();
+  }
 
-  toggleModal();
-}
+  function handleBtnModalClick(e) {
+    e.preventDefault();
 
-function repaintedPost({ id, name, age }) {
-  const post = refs.postWrapper.querySelector(`.post[data-id ="${id}"`);
-  const postName = post.querySelector('p[data-name="name"]');
-  const postAge = post.querySelector('p[data-name="age"]');
+    modalEditUser(e)
+  }
 
-  postName.textContent = `NAME: ${name}`;
-  postAge.textContent = `AGE: ${age}`;
-}
+  function handleBtnPostClick({ target }) {
+    if (target.nodeName !== "BUTTON") return;
 
-function toggleModal() {
-  refs.backdropModal.classList.toggle('is-visible');
-}
+    const action = target.dataset.action;
 
-function createUserInValueInput(nodaList) {
-  const arrayInput = Array.from(nodaList);
-  const arrayValue = arrayInput.map(input => input.value);
+    switch (action) {
+      case 'delete':
+        deleteUserPost(target);
+        break;
+      case 'edit':
+        editUserStart(target)
+        break;
+      default:
+        throw new Error('Unrecognized action type ' + action);
+    }
+  }
 
-  return arrayValue.reduce((name, age) => {
-    return new User(name, age);
-  })
-}
+  function modalEditUser({ target }) {
+    if (target.nodeName !== "BUTTON") return;
 
-function deleteUserPost(target) {
-  const post = target.closest('.post');
-  const postIdToDelete = post.dataset.id;
+    const action = target.dataset.action;
 
-  api.deleteUser(postIdToDelete).then(() => {
-    post.remove();
-  });
-}
+    switch (action) {
+      case 'save':
+        editUserSave();
+        break;
+      case 'cancel':
+        toggleModal();
+        break;
+      default:
+        throw new Error('Unrecognized action type ' + action);
+    }
+  }
 
-function createPostUser({ id, name, age }) {
-  return `<div class="post" data-id='${id}'>
+  function editUserStart(target) {
+    const editPost = target.closest('.post');
+    const postUserId = editPost.dataset.id;
+
+    api.getUserById(postUserId).then(user => {
+      refs.modalInputName.value = user.name;
+      refs.modalInputAge.value = user.age;
+    })
+
+    refs.modal.dataset.id = postUserId;
+    toggleModal();
+  }
+
+  function editUserSave() {
+    const upUser = createUserInValueInput(refs.userUpdateInput);
+
+    upUser.id = refs.modal.dataset.id;
+
+    api.updateUser(upUser)
+      .then(obj => obj.data)
+      .then(user => repaintedPost(user))
+
+    toggleModal();
+  }
+
+  function repaintedPost({ id, name, age }) {
+    const post = refs.postWrapper.querySelector(`.post[data-id ="${id}"`);
+    const postName = post.querySelector('p[data-name="name"]');
+    const postAge = post.querySelector('p[data-name="age"]');
+
+    postName.textContent = `NAME: ${name}`;
+    postAge.textContent = `AGE: ${age}`;
+  }
+
+  function toggleModal() {
+    refs.backdropModal.classList.toggle('is-visible');
+  }
+
+  function createUserInValueInput(nodaList) {
+    const arrayInput = Array.from(nodaList);
+    const arrayValue = arrayInput.map(input => input.value);
+
+    return arrayValue.reduce((name, age) => {
+      return new User(name, age);
+    })
+  }
+
+  function deleteUserPost(target) {
+    const post = target.closest('.post');
+    const postIdToDelete = post.dataset.id;
+
+    api.deleteUser(postIdToDelete).then(() => {
+      post.remove();
+    });
+  }
+
+  function createPostUser({ id, name, age }) {
+    return `<div class="post" data-id='${id}'>
     <p class="post_id">ID: ${id}</p>
      <div> --------------------------------------  </div>
     <p class="post_data" data-name = 'name'>NAME: ${name}</p>
@@ -240,22 +240,22 @@ function createPostUser({ id, name, age }) {
     <button class="btn" data-action = 'edit'>Редактировать</button>
     <button class="btn" data-action = 'delete'>Удалить</button>
     </div>`
-}
+  }
 
-function selectRefs() {
-  const refs = {};
+  function selectRefs() {
+    const refs = {};
 
-  refs.postWrapper = document.querySelector('.post-wrapper');
-  refs.form = document.querySelector('.form');
-  refs.allUserBtn = document.querySelector('button[data-action="show-all"]');
-  refs.userInput = document.querySelectorAll('.js-user-input');
-  refs.backdropModal = document.querySelector('.backdrop');
-  refs.modal = document.querySelector('.modal');
-  refs.userUpdateInput = document.querySelectorAll('.js-update-input');
-  refs.modalInputName = document.querySelector('input[data-input="name"]');
-  refs.modalInputAge = document.querySelector('input[data-input="age"]');
+    refs.postWrapper = document.querySelector('.post-wrapper');
+    refs.form = document.querySelector('.form');
+    refs.allUserBtn = document.querySelector('button[data-action="show-all"]');
+    refs.userInput = document.querySelectorAll('.js-user-input');
+    refs.backdropModal = document.querySelector('.backdrop');
+    refs.modal = document.querySelector('.modal');
+    refs.userUpdateInput = document.querySelectorAll('.js-update-input');
+    refs.modalInputName = document.querySelector('input[data-input="name"]');
+    refs.modalInputAge = document.querySelector('input[data-input="age"]');
 
-  return refs;
-}
+    return refs;
+  }
 
 });
