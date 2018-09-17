@@ -18,19 +18,17 @@
    }
 
    function getLocalStorage() {
-   	const data = JSON.parse(localStorage.getItem(`user's-bookmarks`));
+   	const data = JSON.parse(localStorage.getItem(`user-bookmarks`));
 
     return data;
    }
 
-   function deleteFromLocalStorage(array, url) {
-   		return array.reduce((acc, obj) => {
-   				if(obj.url !== url){
-   					acc.push(obj);
-   				}
+   function filteredArray (array, url) {
+   		 const filter = array.filter(obj => obj.url !== url);
 
-   				return acc;
-   		}, [])
+       console.log(filter)
+
+       return filter;
    }
 
 
@@ -50,13 +48,9 @@
        return refs;
      }
 
-     (function (arr) {
-          	 const markup = arr.reduce((acc, obj) => acc + createCardWithObj(obj), '');
+     const markup = arrObj.reduce((acc, obj) => acc + createCardWithObj(obj), '');
      
-          	  refs.root.insertAdjacentHTML('afterbegin', markup);
-     }(arrObj));
-
-     //painedCardOfLocalStorage(arrObj);
+     refs.root.insertAdjacentHTML('afterbegin', markup);
      
      refs.form.addEventListener('submit', handleFormBySubmit);
      refs.root.addEventListener('click', handleButtonRemoveCard);
@@ -89,7 +83,7 @@
        const url = card.querySelector('.card-link').href;
        const data = getLocalStorage()
 
-       addLocalStorage(deleteFromLocalStorage(data, url));
+       addLocalStorage(filteredArray(data, url));
        
        card.remove();
      }
