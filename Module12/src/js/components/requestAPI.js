@@ -63,7 +63,7 @@
         api.getObjAPI(userUrl).then(obj => {
         	if(obj === undefined) return;
 
-        	arrObj.push(obj)
+        	arrObj.unshift(obj)
        		addLocalStorage(arrObj);
 
          refs.root.insertAdjacentHTML('afterbegin', createCardWithObj(obj));
