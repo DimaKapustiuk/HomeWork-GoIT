@@ -14,7 +14,7 @@
    }
 
    function addLocalStorage(data) {
-   	 localStorage.setItem(`user's-bookmarks`, JSON.stringify(data));
+   	 localStorage.setItem(`user-bookmarks`, JSON.stringify(data));
    }
 
    function getLocalStorage() {
