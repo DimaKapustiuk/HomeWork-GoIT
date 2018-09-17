@@ -1,7 +1,7 @@
 ;(function(document) {
   
   const api = {
-     baseUrl: 'http://api.linkpreview.net/?key=5b9a45cc81f339fa8928c270076c0ef75e4182d8266b4&q=',
+     baseUrl: 'https://api.linkpreview.net/?key=5b9a45cc81f339fa8928c270076c0ef75e4182d8266b4&q=',
      getObjAPI(userUrl) {
        return fetch(`${this.baseUrl}${userUrl}`)
          .then(response => {
