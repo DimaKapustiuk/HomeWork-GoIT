@@ -6,12 +6,14 @@ const plumber = require('gulp-plumber');
 const rigger = require('gulp-rigger');
 const htmlmin = require('gulp-htmlmin');
 const rename = require('gulp-rename');
-const prefixer = require('gulp-autoprefixer');
+const autoprefixer = require('autoprefixer');
 const sourcemaps = require('gulp-sourcemaps')
-const imagemin = require('gulp-imagemin');
-const pngquant = require('imagemin-pngquant');
 const watch = require('gulp-watch');
 const sequence = require('run-sequence');
+const concat = require('gulp-concat');
+const sass = require('gulp-sass');
+const postcss = require('gulp-postcss');
+const cssnano = require('gulp-cssnano');
 
 const path = {
     build: {
@@ -23,22 +25,22 @@ const path = {
     },
     src: {
         html: 'src/**/*.html',
-        js: 'src/js/main.js',
-        style: 'src/style/main.scss',
+        js: 'src/js/**/*.js',
+        style: 'src/styles/main.sass',
         img: 'src/img/**/*.*',
         fonts: 'src/fonts/**/*.*'
     },
     watch: {
         html: 'src/**/*.html',
         js: 'src/js/**/*.js',
-        style: 'src/style/**/*.scss',
+        style: 'src/styles/**/*.sass',
         img: 'src/img/**/*.*',
         fonts: 'src/fonts/**/*.*'
     },
     clean: './build'
 };
 
-var config = {
+const config = {
     server: {
         baseDir: "build"
     },
@@ -47,6 +49,7 @@ var config = {
     host: 'localhost',
     port: 3000,
 };
+
 
 gulp.task('html', () =>
   gulp
@@ -57,26 +60,38 @@ gulp.task('html', () =>
         collapseWhitespace: true,
       }),
     )
-    .pipe(gulp.dest(path.build.html)),
+    .pipe(gulp.dest(path.build.html))
+    .pipe(browserSync.stream()) 
+);
+
+gulp.task('styles', () =>
+  gulp.src(path.src.style)
+    .pipe(plumber())
+    .pipe(sass())
+    .pipe(postcss([autoprefixer()]))
+    .pipe(gulp.dest(path.build.css))
+    .pipe(cssnano())
+    .pipe(rename('styles.min.css'))
+    .pipe(gulp.dest(path.build.css))
+    .pipe(browserSync.stream())
 );
 
 gulp.task('scripts', () => 
 	    gulp.src(path.src.js)
          .pipe(plumber())
-         .pipe(rigger())
-         .pipe(gulp.dest(path.build.js)) 
          .pipe(babel())
+         .pipe(concat('scripts.min.js'))
          .pipe(sourcemaps.init())
          .pipe(uglify())
-         .pipe(rename('scripts.min.js'))
          .pipe(sourcemaps.write())
          .pipe(gulp.dest(path.build.js))
          .pipe(browserSync.stream())   
 );
 
 gulp.task('watch', function(){
+    gulp.watch(path.watch.html, ['html']);
+    gulp.watch(path.watch.style, ['styles']);
     gulp.watch(path.watch.js, ['scripts']);
-    gulp.watch(path.watch.html, ['html']).on('change', browserSync.reload)
 });
 
 
@@ -88,7 +103,9 @@ gulp.task('webServer', function() {
 gulp.task('build', callback => 
     sequence(
         'html',
+        'styles',
         'scripts',
+
         callback,
     ),)
 

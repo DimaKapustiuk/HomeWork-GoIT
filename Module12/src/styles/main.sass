@@ -1,0 +1,54 @@
+$bgcolorBackDrop: rgba(0, 0, 0, 0.4);
+
+.container 
+	width: 90%;	
+	display: block;
+
+.flex 
+	display: -webkit-flex
+	display: -moz-flex
+	display: -ms-flex
+	display: -o-flex
+	display: flex
+	flex-flow: column nowrap
+	justify-content: space-between
+	align-items: center
+	text-align: center
+
+.form
+	width: 50%
+	margin: 0 auto
+	@extend .flex
+
+
+.btn
+	width: 30%  
+	background: #fff
+	margin-top: 10px
+	box-shadow: 0 2px 2px rgba(0,0,0,0.3)
+	outline: none
+
+	&:hover 
+		background: rgba(0, 0, 0, 0.2)
+
+.root 
+	display: flex;
+  flex-flow: column;
+  align-items: center;
+	
+#card 
+	width: 100%
+	margin: 0 auto
+
+
+.card-wrapper
+	box-shadow: 2px 2px 2px 2px rgba(0,0,0,.5)
+	width: 50%
+	padding: 20px
+	margin-top: 20px
+	@extend .flex
+
+
+.card-img 
+ 	width: 70%;
+ 	height: 70%;
