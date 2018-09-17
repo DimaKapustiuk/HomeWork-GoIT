@@ -24,11 +24,7 @@
    }
 
    function filteredArray (array, url) {
-   		 const filter = array.filter(obj => obj.url !== url);
-
-       console.log(filter)
-
-       return filter;
+   		return array.filter(obj => obj.url !== url);
    }
 
 
