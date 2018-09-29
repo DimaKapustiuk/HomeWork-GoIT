@@ -14,6 +14,7 @@ export default class Controller {
     document.addEventListener('DOMContentLoaded', () => {
       const img = document.createElement('img');
       img.src = logo;
+      console.log(logo)
       const items = this._model._items;
 
       this._model.clearStorage()

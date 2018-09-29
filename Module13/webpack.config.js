@@ -11,6 +11,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
+    publicPath: "",
   },
 
   module: {
@@ -34,13 +35,14 @@ module.exports = {
             loader: 'url-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'img/',
+              outputPath: 'img',
               limit: 10000,
             },
           },
           'img-loader',
         ],
       },
+      
       { 
         test: /\.hbs$/, 
         use: "handlebars-loader" 

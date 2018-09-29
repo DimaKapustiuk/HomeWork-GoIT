@@ -1,0 +1,125 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  font-size: 18px; }
+
+.container {
+  text-align: center;
+  margin: 0 auto;
+  width: 90%;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 100%;
+  grid-template-rows: 300px auto; }
+
+.form {
+  align-self: center; }
+
+.input-user {
+  background-color: #F1F3F4;
+  border: none;
+  border-radius: 22px;
+  box-shadow: 0px 2px 5px rgba(1, 1, 1, 0.5);
+  outline: none;
+  opacity: 1;
+  max-width: 560px;
+  width: 30%;
+  padding: 10px;
+  font-size: 16px; }
+  .input-user:hover {
+    box-shadow: 0px 5px 10px rgba(1, 1, 1, 0.5);
+    background-color: rgba(1, 1, 1, 0.1); }
+
+.btn {
+  background-color: #f2f2f2;
+  border: 1px solid #f2f2f2;
+  border-radius: 2px;
+  color: #757575;
+  cursor: default;
+  font-family: arial, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 11px 4px;
+  min-width: 54px;
+  padding: 10px 16px;
+  text-align: center; }
+  .btn:hover {
+    color: black;
+    border: 1px solid rgba(1, 1, 1, 0.5); }
+
+.bookmarks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 286.5px));
+  grid-template-rows: repeat(4, 185px);
+  grid-gap: 20px; }
+
+.bookmark-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(1, 1, 1, 0.5);
+  opacity: 1;
+  position: relative; }
+  .bookmark-wrapper:hover .delete-btn {
+    display: block; }
+  .bookmark-wrapper:hover .bookmark-descr {
+    display: flex; }
+  .bookmark-wrapper:hover .bookmark-date {
+    color: #fff; }
+
+.bookmark-descr {
+  display: none;
+  width: 100%;
+  min-height: 185px;
+  max-height: 185px;
+  position: absolute;
+  background: rgba(1, 1, 1, 0.8);
+  z-index: 2;
+  color: #fff;
+  align-items: center; }
+
+.bookmark-date {
+  align-self: flex-end;
+  position: absolute;
+  z-index: 3;
+  top: 150px;
+  right: 10px; }
+
+.delete-btn {
+  display: none;
+  z-index: 999;
+  position: absolute;
+  align-self: flex-end;
+  width: 32px;
+  height: 32px;
+  background-image: url(https://image.flaticon.com/icons/png/512/64/64146.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: -webkit-transform 0.1s linear;
+  transition: transform 0.1s linear;
+  transition: transform 0.1s linear, -webkit-transform 0.1s linear; }
+  .delete-btn:hover {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg); }
+
+.bookmark-img {
+  max-width: 90%;
+  min-width: 50%;
+  margin: 0 auto;
+  max-height: 120px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  margin-top: 0px; }
+
+.bookmark-link {
+  text-decoration: none;
+  color: black; }
+
