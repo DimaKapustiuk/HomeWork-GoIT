@@ -8,6 +8,14 @@ export default class Model {
     this._items = this._dataStorage ? this._dataStorage : [];
   }
 
+  get items() {
+    return this._items;
+  }
+
+  // set items(items) {
+  //   return this._items = items;
+  // }
+
   getUrl(url) {
     return api.getUrl(url)
       .then(data => {
@@ -20,7 +28,6 @@ export default class Model {
         data.id = Date.now();
 
         data.date = this.formatTime(data.id);
-        console.log(data)
 
         this._items.push(data);
         LOCALSTORAGE.set("items", this._items)

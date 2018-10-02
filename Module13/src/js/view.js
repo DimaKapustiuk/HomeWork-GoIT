@@ -1,7 +1,7 @@
 import bookmark from '../template/bookmark.hbs'
 
 export default class View {
-  constructor(refs) {
+  constructor() {
     this._refs = {};
 
     this._refs.title = document.querySelector('.title')
@@ -9,6 +9,10 @@ export default class View {
     this._refs.form = document.querySelector('.form');
     this._refs.bookmarks = document.querySelector('.bookmarks');
     this._refs.deleteBtn = document.querySelector('.delete-btn');
+  }
+
+  get refs() {
+    return this._refs;
   }
 
   initItems(items) {

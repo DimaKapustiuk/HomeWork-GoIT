@@ -5,8 +5,8 @@ export default class Controller {
     this._view = view;
     this._model = model;
 
-    this._view._refs.form.addEventListener('submit', this.handleSubmitForm.bind(this));
-    this._view._refs.bookmarks.addEventListener('click', this.handleDeleteBookmark.bind(this))
+    this._view.refs.form.addEventListener('submit', this.handleSubmitForm.bind(this));
+    this._view.refs.bookmarks.addEventListener('click', this.handleDeleteBookmark.bind(this))
 
   }
 
@@ -14,12 +14,12 @@ export default class Controller {
     document.addEventListener('DOMContentLoaded', () => {
       const img = document.createElement('img');
       img.src = logo;
-      console.log(logo)
-      const items = this._model._items;
 
-      this._model.clearStorage()
+      const items = this._model.items;
 
-      this._view._refs.title.appendChild(img);
+      // this._model.clearStorage()
+
+      this._view.refs.title.appendChild(img);
       this._view.initItems(items);
     });
   }
@@ -27,7 +27,7 @@ export default class Controller {
   handleSubmitForm(event) {
     event.preventDefault();
 
-    const userUrl = this._view._refs.input.value;
+    const userUrl = this._view.refs.input.value;
 
     this._model.getUrl(userUrl)
       .then(data => {
@@ -36,7 +36,7 @@ export default class Controller {
         this._view.addItem(data);
       });
 
-    this._view._refs.form.reset();
+    this._view.refs.form.reset();
   }
 
   handleDeleteBookmark({ target }) {
