@@ -1,5 +1,6 @@
 import bookmark from '../template/bookmark.hbs'
 import inputError from '../template/inputError.hbs'
+import errorResponse from '../template/errorResponse.hbs'
 
 export default class View {
   constructor() {
@@ -11,6 +12,7 @@ export default class View {
     this._refs.form = document.querySelector('.form');
     this._refs.bookmarks = document.querySelector('.bookmarks');
     this._refs.deleteBtn = document.querySelector('.delete-btn');
+    this._refs.backdrop = document.querySelector('.backdrop');
   }
 
   get refs() {
@@ -57,6 +59,9 @@ export default class View {
   }
 
   displayResponseError(error) {
+    const errorResp = errorResponse(error);
+    this._refs.backdrop.innerHTML = errorResp;
+
     this.displayError(this._refs.container, 'error')
   }
   

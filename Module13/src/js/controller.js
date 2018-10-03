@@ -8,7 +8,7 @@ export default class Controller {
     this._view.refs.form.addEventListener('submit', this.handleSubmitForm.bind(this));
     this._view.refs.bookmarks.addEventListener('click', this.handleDeleteBookmark.bind(this));
     this._view.refs.input.addEventListener('input', this.handleInputValue.bind(this));
-
+    this._view.refs.backdrop.addEventListener('click', this.handleCloseModalError.bind(this));
   }
 
   init() {
@@ -36,9 +36,29 @@ export default class Controller {
 
         this._view.addItem(data);
       })
-      .catch(error => this._view.displayResponseError(error))
+      .catch(error => {
+        this._view.displayResponseError({error})
+        window.addEventListener('keydown', ({code}) => {
+          if(code === 'Escape') { 
+            this._view.removeError(this._view.refs.container, 'error')
+        }
+        });
+    });
 
     this._view.refs.form.reset();
+  }
+  // removeModal({code}) {
+  //   if(code === 'Escape') { 
+  //      this._view.removeError(this._view.refs.container, 'error')
+  //    }
+  // }
+
+  handleCloseModalError({target}) {
+     const action = target.dataset.action;
+
+     if(action === 'modal-close') { 
+       this._view.removeError(this._view.refs.container, 'error')
+     }
   }
 
   handleDeleteBookmark({ target }) {

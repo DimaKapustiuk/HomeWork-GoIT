@@ -5,7 +5,7 @@ export const getUrl = url => {
       .then(response => {
         if (response.ok) return response.json();
 
-        throw new Error('Error in response')
+        throw new Error(`Error in response ${response.status}`)
       })
 };
 
