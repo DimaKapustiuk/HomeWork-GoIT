@@ -19,12 +19,12 @@ export default class Model {
   getUrl(url) {
     return api.getUrl(url)
       .then(data => {
-
         if (data === undefined) return;
 
         if (data.image === "") {
           data.image = defaultImage;
         }
+
         data.id = Date.now();
 
         data.date = this.formatTime(data.id);
@@ -66,6 +66,5 @@ export default class Model {
     };
 
     return date.toLocaleString('Uk-uk', options);
-
   }
 }

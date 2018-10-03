@@ -7,6 +7,5 @@ export const getUrl = url => {
 
         throw new Error('Error in response')
       })
-      .catch(error => alert(error))
 };
 

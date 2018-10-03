@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>HomeWork Module13</title>
+  <meta charset="UTF-8">
+  <title>HomeWork Module13</title>
 </head>
+
 <body>
 	<div class="container">
+		<div class="backdrop">
+			<div class="error-modal">
+				<p class="error-massage">ERROR</p>
+			</div>
+		</div>
 		<form class="form">
 			<label>
 				<h2 class="title"></h2>
+				<div class="input-wrapper"> 
 				<input class="input-user" type="text" data-info = 'user-url' placeholder="Введите URL для добавления закладки">
-			</label>
 			<button class="btn" type='submit'>Добавить</button>
+			</div>
+			</label>
 		</form>
 	<div class="bookmarks"></div>
 	</div>
-	
 </body>
+
 </html>
