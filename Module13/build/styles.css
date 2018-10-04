@@ -28,10 +28,33 @@ body {
   background-color: rgba(0, 0, 0, 0.2); }
 
 .error-modal {
+  position: relative;
   width: 30%;
   height: 30%;
   background: #fff;
-  border: 2px solid red; }
+  border: 2px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+
+.close-btn {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  top: 0;
+  right: 0;
+  background-image: url(https://image.flaticon.com/icons/png/512/64/64146.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: -webkit-transform 0.1s linear;
+  transition: transform 0.1s linear;
+  transition: transform 0.1s linear, -webkit-transform 0.1s linear; }
+  .close-btn:hover {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg); }
 
 .container.error .backdrop {
   display: flex; }

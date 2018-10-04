@@ -38,27 +38,23 @@ export default class Controller {
       })
       .catch(error => {
         this._view.displayResponseError({error})
-        window.addEventListener('keydown', ({code}) => {
-          if(code === 'Escape') { 
-            this._view.removeError(this._view.refs.container, 'error')
-        }
-        });
+        window.addEventListener('keydown', this.handleCloseModalError.bind(this));
     });
 
     this._view.refs.form.reset();
   }
-  // removeModal({code}) {
-  //   if(code === 'Escape') { 
-  //      this._view.removeError(this._view.refs.container, 'error')
-  //    }
-  // }
 
-  handleCloseModalError({target}) {
+  handleCloseModalError(event) {
+     const target = event.target;
+     const code = event.code;
      const action = target.dataset.action;
 
-     if(action === 'modal-close') { 
+     if(code === 'Escape' || action === 'modal-close') { 
        this._view.removeError(this._view.refs.container, 'error')
      }
+      window.removeEventListener('keydown', this.handleCloseModalError.bind(this));
+
+      console.log(window)
   }
 
   handleDeleteBookmark({ target }) {
